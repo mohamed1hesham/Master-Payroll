@@ -2,7 +2,8 @@
 <html>
 
 <head>
-   @include('head')
+    @include('admin.partials.head')
+
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
         @include('admin.inc.nav')
