@@ -1,3 +1,5 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.0/font/bootstrap-icons.css" rel="stylesheet">
+
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{ asset('/') }}index3.html" class="brand-link">
@@ -257,7 +259,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="../tables/data.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class=""></i>
                                 <p>DataTables</p>
                             </a>
                         </li>
@@ -272,7 +274,7 @@
                 <li class="nav-header">EXAMPLES</li>
                 <li class="nav-item">
                     <a href="/" class="nav-link">
-                        <i class="nav-icon far fa-calendar-alt"></i>
+                        <i class="bi bi-globe2"></i>
                         <p>
                             Instancs
                             <span class="badge badge-info right">2</span>
