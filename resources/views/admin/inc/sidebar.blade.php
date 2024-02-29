@@ -121,9 +121,9 @@
                 </li>
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-chart-pie"></i>
+                        <i class="bi bi-fingerprint"></i>
                         <p>
-                            Charts
+                            Roles & permissions
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
@@ -131,19 +131,19 @@
                         <li class="nav-item">
                             <a href="../charts/chartjs.html" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>ChartJS</p>
+                                <p>1111111111</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="../charts/flot.html" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Flot</p>
+                                <p>222222222</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="../charts/inline.html" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Inline</p>
+                                <p>33333333</p>
                             </a>
                         </li>
                     </ul>
