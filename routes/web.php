@@ -2,11 +2,8 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
-<<<<<<< HEAD
 use App\Http\Controllers\PermissionsController;
-=======
 use App\Http\Controllers\InstanceController;
->>>>>>> 3c6a1ac3f77dc69bf771df7f71ea29e4a5d90972
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
