@@ -4,7 +4,14 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-12">
-                <div class="card">
+                @if (session('status'))
+                    <div class="alert alert-success">
+                        {{ session('status') }}
+                    </div>
+                @endif
+
+
+                <div class="card mt-3">
                     <div class="card-header">
                         <h4>permissions
                             <a href="{{ url('permissions/create') }}" class="btn btn-primary float-end">add
