@@ -129,9 +129,9 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="../charts/chartjs.html" class="nav-link">
+                            <a href="{{ route('permissions.index') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>1111111111</p>
+                                <p>permissions</p>
                             </a>
                         </li>
                         <li class="nav-item">
