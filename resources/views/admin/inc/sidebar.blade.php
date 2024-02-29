@@ -273,11 +273,10 @@
                 </li>
                 <li class="nav-header">EXAMPLES</li>
                 <li class="nav-item">
-                    <a href="/" class="nav-link">
+                    <a href="{{ route('instances') }}" class="nav-link">
                         <i class="bi bi-globe2"></i>
                         <p>
                             Instancs
-                            <span class="badge badge-info right">2</span>
                         </p>
                     </a>
                 </li>
