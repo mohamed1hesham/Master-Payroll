@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::resource('/permissions', PermissionsController::class);
 
 
 Route::get('/', function () {
@@ -27,8 +26,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::post('login', [LoginController::class, 'login'])->name('login');
-Route::get('dashboard', [LoginController::class, 'show_dash'])->name('dashboard.home');
-Route::get('instances', [InstanceController::class, 'indexMain'])->name('instances');
-Route::get('instanceCreation', [InstanceController::class, 'indexCreation'])->name('instanceCreation');
-Route::post('/instancesData', [InstanceController::class, "instancesData"])->name('instancesData');
-Route::post('create', [InstanceController::class, 'create'])->name('create');
+Route::group(["prefix"=>"dashboard",'as'=>"dashboard.",'middleware'=>"auth"],function(){
+    Route::get('/', [LoginController::class, 'show_dash'])->name('home');
+    Route::get('instances', [InstanceController::class, 'indexMain'])->name('instances');
+    Route::get('instanceCreation', [InstanceController::class, 'indexCreation'])->name('instanceCreation');
+    Route::post('/instancesData', [InstanceController::class, "instancesData"])->name('instancesData');
+    Route::post('create', [InstanceController::class, 'create'])->name('create');
+    Route::resource('/permissions', PermissionsController::class);
+
+});
