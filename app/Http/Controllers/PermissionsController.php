@@ -9,7 +9,10 @@ use Spatie\Permission\Models\Permission;
 class PermissionsController extends Controller
 {
         public function index(){
-            return view('role-permissions.permission.index');
+            $permissions = Permission::get();
+            return view('role-permissions.permission.index',[
+                'permission'=>$permissions
+            ]);
         }
 
 

@@ -32,6 +32,6 @@ Route::group(["prefix"=>"dashboard",'as'=>"dashboard.",'middleware'=>"auth"],fun
     Route::get('instanceCreation', [InstanceController::class, 'indexCreation'])->name('instanceCreation');
     Route::post('/instancesData', [InstanceController::class, "instancesData"])->name('instancesData');
     Route::post('create', [InstanceController::class, 'create'])->name('create');
-    Route::resource('/permissions', PermissionsController::class);
-
+    
 });
+Route::resource('/permissions', PermissionsController::class);
