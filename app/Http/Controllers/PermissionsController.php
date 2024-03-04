@@ -11,7 +11,7 @@ class PermissionsController extends Controller
         public function index(){
             $permissions = Permission::get();
             return view('role-permissions.permission.index',[
-                'permission'=>$permissions
+                'permissions'=>$permissions
             ]);
         }
 
@@ -39,19 +39,55 @@ class PermissionsController extends Controller
         }
 
 
+        public function edit(Permission $permission){
+            return view('role-permissions.permission.edit',[
+                'permission'=>$permission
 
-
-        public function edit(){
-
+            ]);
         }
 
-        
-        public function update(){
 
+
+
+        // public function update(Request $request,Permission $permission ){
+        //     $request->validate([
+        //         'name' => 'required|string|unique:permissions,name',
+        //     ]);
+        
+        //     try {
+        //     $permission->update([
+        //         'name' => $request->name
+        //     ]);
+        // } catch (\Exception $e) {
+        
+        // }
+        // return redirect()->back()->withErrors('status', 'Permission update successfully.');
+
+        // }
+
+        
+        
+        public function update(Request $request, Permission $permission){
+            $request->validate([
+                'name' => 'required|string|unique:permissions,name,' . $permission->id,
+            ]);
+        
+            $permission->update([
+                'name' => $request->name,
+            ]);
+        
+            return redirect('permissions')->with('status', 'Permission updated successfully.');
         }
+        
 
         
-        public function destroy(){
-
+        public function destroy($permissionId){
+            $permission = Permission::find($permissionId); 
+            if ($permission) { 
+                $permission->delete();
+                return redirect('permissions')->with('status', 'Permission deleted successfully.'); 
+            } else {
+                return redirect()->back()->withErrors('Permission not found.'); 
+            }
         }
     }

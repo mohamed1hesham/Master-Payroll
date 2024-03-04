@@ -13,9 +13,9 @@
 
                 <div class="card mt-3">
                     <div class="card-header">
-                        <h4>permissions
-                            <a href="{{ url('permissions/create') }}" class="btn btn-primary float-end">add
-                                permissions</a>
+                        <h4>roles
+                            <a href="{{ url('roles/create') }}" class="btn btn-primary float-end">add
+                                roles</a>
                         </h4>
                     </div>
                     <div class="card-body ">
@@ -28,14 +28,14 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($permissions as $permission)
+                                @foreach ($roles as $role)
                                     <tr>
-                                        <td>{{ $permission->id }}</td>
-                                        <td>{{ $permission->name }}</td>
+                                        <td>{{ $role->id }}</td>
+                                        <td>{{ $role->name }}</td>
                                         <td>
-                                            <a href="{{ url('permissions/' . $permission->id . '/edit') }}"
+                                            <a href="{{ url('roles/' . $role->id . '/edit') }}"
                                                 class="btn btn-success">edit</a>
-                                            <a href="{{ url('permissions/' . $permission->id . '/delete') }}"
+                                            <a href="{{ url('roles/' . $role->id . '/delete') }}"
                                                 class="btn btn-danger">delete</a>
                                         </td>
                                     </tr>
