@@ -34,7 +34,7 @@ class PermissionsController extends Controller
         } catch (\Exception $e) {
         
         }
-        return redirect()->back()->withErrors('status', 'Permission created successfully.');
+        return redirect('permissions')->withErrors('status', 'Permission created successfully.');
 
         }
 
