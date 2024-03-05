@@ -11,14 +11,13 @@ class RoleController extends Controller
 {
     public function index(){
         $roles = Role::get();
-        return view('role-permissions.role.index',[
+        return view('role-permissions\roles\index',[
             'roles'=>$roles
         ]);
     }
 
-
     public function create(){
-        return view('role-permissions.role.create');
+        return view('role-permissions\roles\create');
 
     }
 
@@ -27,7 +26,8 @@ class RoleController extends Controller
         $request->validate([
             'name' => 'required|string|unique:roles,name',
         ]);
-    
+        
+    // dd($request->all());
         try {
         Role::create([
             'name' => $request->name
@@ -41,7 +41,7 @@ class RoleController extends Controller
 
 
     public function edit(Role $role){
-        return view('role-permissions.role.edit',[
+        return view('role-permissions.roles.edit',[
             'role'=>$role
 
         ]);
@@ -81,7 +81,7 @@ class RoleController extends Controller
         $rolePermissions = DB::table('role_has_permissions')
         ->where('role_has_permissions.role_id',$role->id)
         ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')->all();
-        return view('role-permissions.role.add-permissions',[
+        return view('role-permissions.roles.add-permissions',[
             'role'=>$role,
             'permissions'=> $permissions,
             'rolePermissions'=>$rolePermissions,

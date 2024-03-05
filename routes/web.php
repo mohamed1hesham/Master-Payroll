@@ -36,8 +36,17 @@ Route::group(["prefix"=>"dashboard",'as'=>"dashboard.",'middleware'=>"auth"],fun
     Route::post('create', [InstanceController::class, 'create'])->name('create');
     
 });
-Route::resource('/permissions', PermissionsController::class);
-Route::get('permissions/{permissionId}/delete', [PermissionsController::class, 'destroy']);
+
+
+Route::prefix('')->group(function () {
+    Route::resource('/permissions', PermissionsController::class);
+    Route::get('permissions/{permissionId}/delete', [PermissionsController::class, 'destroy']);
+});
+
+
+
+// Route::resource('/permissions', PermissionsController::class);
+// Route::get('permissions/{permissionId}/delete', [PermissionsController::class, 'destroy']);
 
 
 
