@@ -1,5 +1,5 @@
 <x-web-layout>
-
+    @include('role-permissions.nav-links')
 
     <div class="container mt-5">
         <div class="row">
@@ -33,8 +33,11 @@
                                         <td>{{ $role->id }}</td>
                                         <td>{{ $role->name }}</td>
                                         <td>
-                                            <a href="{{ url('roles/' . $role->id . '/edit') }}"
-                                                class="btn btn-success">edit</a>
+                                            <a
+                                                href="{{ url('roles/' . $role->id . '/give-permissions') }}"class="btn btn-success">add
+                                                edit role permisson</a>
+                                            <a
+                                                href="{{ url('roles/' . $role->id . '/edit') }}"class="btn btn-success">edit</a>
                                             <a href="{{ url('roles/' . $role->id . '/delete') }}"
                                                 class="btn btn-danger">delete</a>
                                         </td>

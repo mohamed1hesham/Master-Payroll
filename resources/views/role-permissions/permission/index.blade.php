@@ -1,4 +1,5 @@
 <x-web-layout>
+    @include('role-permissions.nav-links')
 
 
     <div class="container mt-5">

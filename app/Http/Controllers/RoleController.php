@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Permission;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 
@@ -70,4 +71,32 @@ class RoleController extends Controller
             return redirect('roles')->withErrors('role not found.'); 
         }
     }
+
+
+
+    public function addPermissionToRole($roleId){
+        $permissions = Permission::get();
+        $role = Role::findOrFail($roleId);
+        return view('role-permissions.role.add-permissions',[
+            'role'=>$role,
+            'permissions'=> $permissions,
+        ]);
+    }
+
+
+    public function givePermissionToRole(Request $request,$roleId){
+        $request->validate([
+            'permissions.*'=> 'required'
+        ]);
+    
+        $role = Role::findOrFail($roleId);
+    // dd($role);
+        $role->syncPermissions($request->permissions);   
+        // dd($request->all());
+
+        return redirect()->back()->with('status','permission add to role'); 
+
+    }
+
+
 }
