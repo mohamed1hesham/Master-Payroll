@@ -28,7 +28,7 @@
                                         <div class="col-md-3">
                                             <label for="">
                                                 <input type="checkbox" name="permissions[]" value="{{ $permission->name }}"
-                                                    id="name" />
+                                                    {{ in_array($permission->id, $rolePermissions) ? 'checked' : '' }} />
                                                 {{ $permission->name }}
                                             </label>
 
