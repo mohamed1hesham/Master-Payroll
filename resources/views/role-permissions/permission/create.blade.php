@@ -11,7 +11,7 @@
                         <form action="{{ url('permissions') }}" method="POST">
                             @csrf
                             <div class="form-group mb-3">
-                                <label for="name">@lang('Permissions Name'):</label>
+                                <label for="name">@lang('Permission Name'):</label>
                                 <input type="text" name="name" id="name" class="form-control" />
                             </div>
                             <div class="mb-3">
