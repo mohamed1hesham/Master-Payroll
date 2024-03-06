@@ -21,16 +21,16 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a href="{{ url('roles') }}" class="btn btn-primary mx-2">@lang('Roles')</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Features</a>
+                        <a href="{{ url('permissions') }}" class="btn btn-info mx-2">@lang('Permissions')</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
+                        <a href="{{ url('users') }}" class="btn btn-info mx-2">@lang('Users')</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                        {{-- <a class="nav-link disabled" aria-disabled="true">Disabled</a> --}}
                     </li>
                 </ul>
             </div>

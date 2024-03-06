@@ -1,7 +1,6 @@
-<x-web-layout>
-    @include('role-permissions.nav-links')
+@extends('admin.layouts.app')
 
-
+@section('content')
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-12">
@@ -49,5 +48,4 @@
             </div>
         </div>
     </div>
-
-</x-web-layout>
+@endsection
