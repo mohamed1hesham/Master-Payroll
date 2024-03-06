@@ -19,6 +19,12 @@ class InstanceController extends Controller
     {
         return view('admin.pages.Instances.instancesCreation');
     }
+    public function delete($id)
+    {
+        CiInstances::find($id)->delete();
+        return response()->json(['success' => true]);
+    }
+
 
     public function create(CreateInstanceValidator $request)
     {
@@ -27,8 +33,18 @@ class InstanceController extends Controller
         CiInstances::create($validatedData);
         return redirect()->back();
     }
-
-
+    public function update(CreateInstanceValidator $request, $id)
+    {
+        $validatedData = $request->validated();
+        $validatedData['password'] = Hash::make($validatedData['password']);
+        CiInstances::find($id)->update($validatedData);
+        return redirect()->back();
+    }
+    public function edit($id)
+    {
+        $record = CiInstances::find($id);
+        return view('admin.pages.Instances.instancesCreation', ['record' => $record]);
+    }
 
     public function instancesData(Request $request)
     {
@@ -48,6 +64,7 @@ class InstanceController extends Controller
         $data_arr = [];
         foreach ($instances as $item) {
             $data_arr[] = [
+                $item->id ?? '',
                 $item->instance_name ?? '',
                 $item->base_url ?? '',
                 $item->username ?? '',

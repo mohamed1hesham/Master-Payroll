@@ -7,23 +7,31 @@
                 <h3>Setup Instances</h3>
             </div>
             <div class="card-body">
-                <form action="{{ route('create') }}" method="POST">
+                <form
+                    action="{{ isset($record) ? route('dashboard.dashboard.updateInstance', ['id' => $record->id]) : route('dashboard.createInstance') }}"
+                    method="POST">
+
                     @csrf
                     <div class="form-group col-12">
                         <label for="base_url">Base Url</label>
-                        <input id="base_url" type="text" name="base_url" class="form-control">
+                        <input id="base_url" type="text" name="base_url" class="form-control"
+                            value="{{ isset($record) ? $record->base_url : '' }}">
                     </div>
                     <div class="form-group col-12">
                         <label for="instance_name">Instance Name</label>
-                        <input id="instance_name" type="text" name="instance_name" class="form-control">
+                        <input id="instance_name" type="text" name="instance_name" class="form-control"
+                            value="{{ isset($record) ? $record->instance_name : '' }}">
+
                     </div>
                     <div class="form-group col-12">
                         <label for="username">UserName</label>
-                        <input id="username" type="text" name="username" class="form-control">
+                        <input id="username" type="text" name="username" class="form-control"
+                            value="{{ isset($record) ? $record->username : '' }}">
                     </div>
                     <div class="form-group col-12">
                         <label for="password">Password</label>
-                        <input id="password" type="text" name="password" class="form-control">
+                        <input id="password" type="text" name="password" class="form-control"
+                            value="{{ isset($record) ? $record->password : '' }}">
                     </div>
                     @if ($errors->any())
                         <div class="alert alert-danger">

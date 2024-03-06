@@ -272,14 +272,24 @@
                     </ul>
                 </li>
                 <li class="nav-header">EXAMPLES</li>
+
                 <li class="nav-item">
-                    <a href="{{ route('instances') }}" class="nav-link">
+                    <a href="{{ route('dashboard.instances') }}" class="nav-link">
                         <i class="bi bi-globe2"></i>
                         <p>
                             Instancs
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('dashboard.elements') }}" class="nav-link">
+                        <i class="bi bi-globe2"></i>
+                        <p>
+                            Elements
+                        </p>
+                    </a>
+                </li>
+
                 <li class="nav-item">
                     <a href="../gallery.html" class="nav-link">
                         <i class="nav-icon far fa-image"></i>

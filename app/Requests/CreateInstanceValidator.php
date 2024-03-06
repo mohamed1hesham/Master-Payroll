@@ -13,8 +13,9 @@ class CreateInstanceValidator extends FormRequest
 
     public function rules()
     {
+        $id = $this->route('id');
         return [
-            'base_url' => ['required', 'unique:ci_instances'],
+            'base_url' => ['required', 'unique:ci_instances' . ',id'],
             'instance_name' => 'required',
             'username' => 'required',
             'password' => 'required',

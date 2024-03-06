@@ -12,12 +12,11 @@
 
                         <tr>
                             <th scope="col">id</th>
-                            <th scope="col">instance_name</th>
-                            <th scope="col">base_url</th>
-                            <th scope="col">username</th>
-                            <th scope="col">password</th>
-                            <th scope="col">token</th>
-                            <th scope="col">Actions</th>
+                            <th scope="col">element_name_en</th>
+                            <th scope="col">element_name_ar</th>
+                            <th scope="col">order</th>
+                            <th scope="col">disability</th>
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                 </table>
@@ -25,21 +24,19 @@
             <div class="card-footer">
 
                 <a href="/dashboard" class="btn btn-lg btn-danger ">Back</a>
-                <button id="instanceCreationBtn" type="button" class="btn btn-lg btn-primary ">Add
-                    Instance</button>
-
+                <button id="elementCreationBtn" type="button" class="btn btn-lg btn-primary ">Add
+                    Element</button>
             </div>
         </div>
 
     </div>
-
     <script>
-        $('#instanceCreationBtn').click(function() {
+        $('#elementCreationBtn').click(function() {
             $.ajax({
-                url: "{{ route('dashboard.instanceCreation') }}",
+                url: "{{ route('dashboard.elementCreation') }}",
                 method: 'GET',
                 success: function() {
-                    window.location.href = '/dashboard/instanceCreation';
+                    window.location.href = '/dashboard/elementCreation';
                 },
                 error: function(error) {
                     console.error(error);
@@ -56,7 +53,7 @@
                 serverSide: true,
                 processing: true,
                 ajax: {
-                    url: "{{ route('dashboard.instancesData') }}",
+                    url: "{{ route('dashboard.elementsData') }}",
                     type: "POST",
                     data: function(d) {
                         d._token = "{{ csrf_token() }}";
@@ -68,23 +65,19 @@
                         orderable: true
                     }, {
 
-                        name: "instance_name",
+                        name: "element_name_en",
                         orderable: true
                     },
                     {
-                        name: "base_url",
+                        name: "element_name_ar",
                         orderable: true
                     },
                     {
-                        name: "username",
+                        name: "order",
                         orderable: true
                     },
                     {
-                        name: "password",
-                        orderable: true
-                    },
-                    {
-                        name: "token",
+                        name: "disability",
                         orderable: true
                     }, {
                         name: "Actions",
@@ -111,34 +104,6 @@
                     defaultContent: '<button class="btn btn-sm btn-primary edit-instance">Edit</button><button class="btn btn-sm btn-danger delete-instance">Delete</button>'
                 }]
             });
-        });
-        $(document).on('click', '.edit-instance', function() {
-            var data = $(this).closest('tr').find('td').map(function() {
-                return $(this).text();
-            }).get();
-            window.location.href = '/dashboard/edit/' + data[0];
-        });
-
-        $(document).on('click', '.delete-instance', function() {
-            var data = $(this).closest('tr').find('td').map(function() {
-                return $(this).text();
-            }).get();
-            var instanceId = data[0];
-            $.ajax({
-                url: "/dashboard/delete/" + instanceId,
-                method: 'DELETE',
-                data: {
-                    id: instanceId,
-                    _token: "{{ csrf_token() }}"
-                },
-                success: function(response) {
-                    $('#table').DataTable().ajax.reload();
-                },
-                error: function(error) {
-                    console.error(error);
-                }
-            });
-
         });
     </script>
 @endsection
