@@ -8,11 +8,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
-    
+
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable ,HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
     use HasRoles;
 
     /**
@@ -20,10 +20,13 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    protected $guarded = [];
     protected $fillable = [
         'name',
         'email',
         'password',
+        'provider_id',
+        'provider_name',
     ];
 
     /**

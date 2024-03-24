@@ -9,6 +9,8 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
+use Termwind\Components\Element;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,20 +33,22 @@ Auth::routes();
 Route::post('login', [LoginController::class, 'login'])->name('login');
 Route::group(["prefix" => "dashboard", 'as' => "dashboard.", 'middleware' => "auth"], function () {
     Route::get('/', [LoginController::class, 'show_dash'])->name('home');
+
     Route::get('instances', [InstanceController::class, 'indexMain'])->name('instances');
     Route::get('instanceCreation', [InstanceController::class, 'indexCreation'])->name('instanceCreation');
-    Route::post('/instancesData', [InstanceController::class, "instancesData"])->name('instancesData');
     Route::post('createinstance', [InstanceController::class, 'create'])->name('createInstance');
+    Route::post('/instancesData', [InstanceController::class, "instancesData"])->name('instancesData');
 
+    Route::delete('deleteInstance/{id}', [InstanceController::class, 'deleteInstance'])->name('dashboard.deleteInstance');
+    Route::get('editInstance/{id}', [InstanceController::class, 'editInstance'])->name('dashboard.editInstance');
     Route::get('elements', [ElementsController::class, 'indexMain'])->name('elements');
     Route::get('elementCreation', [ElementsController::class, 'indexCreation'])->name('elementCreation');
     Route::post('createElement', [ElementsController::class, 'create'])->name('createElement');
-    Route::get('edit/{id}', [InstanceController::class, 'edit'])->name('dashboard.edit');
-    Route::delete('delete/{id}', [InstanceController::class, 'delete'])->name('dashboard.delete');
     Route::post('/elementsData', [ElementsController::class, "elementsData"])->name('elementsData');
-
-    Route::post('create-instance', [InstanceController::class, 'create'])->name('dashboard.createInstance');
-    Route::post('update-instance/{id}', [InstanceController::class, 'update'])->name('dashboard.updateInstance');
+    Route::get('editElement/{id}', [ElementsController::class, 'editElement'])->name('dashboard.editElement');
+    Route::post('update-instance/{id}', [ElementsController::class, 'updateElement'])->name('dashboard.updateElement');
+    Route::post('up_instance/{id}', [InstanceController::class, 'update'])->name('updateInstance');
+    Route::delete('deleteElement/{id}', [ElementsController::class, 'deleteElement'])->name('dashboard.deleteElement');
 });
 
 
@@ -73,3 +77,7 @@ Route::get('roles/{roleId}/give-permissions', [RoleController::class, 'addPermis
 Route::put('roles/{roleId}/give-permissions', [RoleController::class, 'givePermissionToRole']);
 Route::resource('users', UserController::class);
 Route::get('users/{userId}/delete', [UserController::class, 'destroy']);
+
+Route::get('/auth/redirect', [LoginController::class, 'authGithubRedirect'])->name('auth/redirect');
+
+Route::get('/auth/callback', [LoginController::class, 'authGithubCallback']);

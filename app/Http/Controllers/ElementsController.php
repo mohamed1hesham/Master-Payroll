@@ -6,7 +6,6 @@ use App\Models\CiElements;
 use App\Requests\ElementValidator;
 use Illuminate\Http\Request;
 
-use function PHPUnit\Framework\isEmpty;
 
 class ElementsController extends Controller
 {
@@ -27,6 +26,25 @@ class ElementsController extends Controller
             $validatedData['disability'] = false;
         }
         CiElements::create($validatedData);
+        return redirect()->back();
+    }
+    public function deleteElement($id)
+    {
+        CiElements::find($id)->delete();
+        return response()->json(['success' => true]);
+    }
+    public function editElement($id)
+    {
+        $record = CiElements::find($id);
+        return view('admin.pages.Elements.elementsCreation', ['record' => $record]);
+    }
+    public function updateElement(ElementValidator $request, $id)
+    {
+        $validatedData = $request->validated();
+        if (!$request->has('disability')) {
+            $validatedData['disability'] = false;
+        }
+        CiElements::find($id)->update($validatedData);
         return redirect()->back();
     }
     public function elementsData(Request $request)

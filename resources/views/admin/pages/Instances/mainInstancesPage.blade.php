@@ -108,7 +108,7 @@
                 columnDefs: [{
                     targets: -1,
                     data: null,
-                    defaultContent: '<button class="btn btn-sm btn-primary edit-instance">Edit</button><button class="btn btn-sm btn-danger delete-instance">Delete</button>'
+                    defaultContent: '<button class="btn btn-sm btn-primary edit-instance">Edit</button><br> <button class="btn btn-sm btn-danger delete-instance">Delete</button>'
                 }]
             });
         });
@@ -116,7 +116,7 @@
             var data = $(this).closest('tr').find('td').map(function() {
                 return $(this).text();
             }).get();
-            window.location.href = '/dashboard/edit/' + data[0];
+            window.location.href = '/dashboard/editInstance/' + data[0];
         });
 
         $(document).on('click', '.delete-instance', function() {
@@ -125,7 +125,7 @@
             }).get();
             var instanceId = data[0];
             $.ajax({
-                url: "/dashboard/delete/" + instanceId,
+                url: "/dashboard/deleteInstance/" + instanceId,
                 method: 'DELETE',
                 data: {
                     id: instanceId,
@@ -142,3 +142,14 @@
         });
     </script>
 @endsection
+<style>
+    .edit-instance {
+        margin-bottom: 5px;
+        width: 100px;
+    }
+
+    .delete-instance {
+        margin-bottom: 5px;
+        width: 100px;
+    }
+</style>

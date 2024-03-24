@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
 {
@@ -61,5 +62,24 @@ class LoginController extends Controller
     public function show_dash()
     {
         return view('admin.pages.dashboard');
+    }
+
+    public function authGithubRedirect()
+    {
+        return Socialite::driver('github')->scopes(['read:user', 'public_repo'])->redirect();
+    }
+    public function authGithubCallback()
+    {
+        $user = Socialite::driver('github')->user();
+        $userCreated = User::firstOrCreate(
+            ['provider_id' => $user->getId()],
+            [
+                'provider_name' => 'github',
+                'name' => $user->name,
+                'email' => $user->email,
+            ]
+        );
+        Auth::login($userCreated);
+        return redirect()->route('dashboard.home');
     }
 }

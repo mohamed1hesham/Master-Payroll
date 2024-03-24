@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CiInstances;
-use App\Requests\CreateInstanceValidator;
+use App\Requests\InstanceValidator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -19,28 +19,44 @@ class InstanceController extends Controller
     {
         return view('admin.pages.Instances.instancesCreation');
     }
-    public function delete($id)
+    public function deleteInstance($id)
     {
         CiInstances::find($id)->delete();
         return response()->json(['success' => true]);
     }
 
+    public function postGuzzle($base_url, $query)
+    {
+        $client = new \GuzzleHttp\Client();
+        try {
+            $response = $client->post($base_url, [
+                'query' => $query
+            ]);
 
-    public function create(CreateInstanceValidator $request)
+            $responses = json_decode($response->getBody()->getContents());
+            //dd($responses);
+            return $responses;
+        } catch (\GuzzleHttp\Exception\RequestException $e) {
+            dd($e->getMessage());
+        }
+    }
+    public function create(InstanceValidator $request)
     {
         $validatedData = $request->validated();
-        $validatedData['password'] = Hash::make($validatedData['password']);
+        $query = ['email' => $validatedData['username'], 'password' => $validatedData['password']];
+        $response = $this->postGuzzle($validatedData['base_url'], $query);
+        $validatedData['token'] = $response->access_token;
         CiInstances::create($validatedData);
         return redirect()->back();
     }
-    public function update(CreateInstanceValidator $request, $id)
+    public function update(InstanceValidator $request, $id)
     {
         $validatedData = $request->validated();
-        $validatedData['password'] = Hash::make($validatedData['password']);
+        // $validatedData['password'] = Hash::make($validatedData['password']);
         CiInstances::find($id)->update($validatedData);
         return redirect()->back();
     }
-    public function edit($id)
+    public function editInstance($id)
     {
         $record = CiInstances::find($id);
         return view('admin.pages.Instances.instancesCreation', ['record' => $record]);
@@ -48,7 +64,6 @@ class InstanceController extends Controller
 
     public function instancesData(Request $request)
     {
-
         $draw = $request->get('draw');
         $start = $request->get('start');
         $length = $request->get('length');

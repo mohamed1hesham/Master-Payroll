@@ -101,9 +101,48 @@
                 columnDefs: [{
                     targets: -1,
                     data: null,
-                    defaultContent: '<button class="btn btn-sm btn-primary edit-instance">Edit</button><button class="btn btn-sm btn-danger delete-instance">Delete</button>'
+                    defaultContent: '<button class="btn btn-sm btn-primary edit-element">Edit</button> <br><button class="btn btn-sm btn-danger delete-element">Delete</button>'
                 }]
             });
         });
+        $(document).on('click', '.edit-element', function() {
+            var data = $(this).closest('tr').find('td').map(function() {
+                return $(this).text();
+            }).get();
+            window.location.href = '/dashboard/editElement/' + data[0];
+        });
+
+        $(document).on('click', '.delete-element', function() {
+            var data = $(this).closest('tr').find('td').map(function() {
+                return $(this).text();
+            }).get();
+            var elementId = data[0];
+            $.ajax({
+                url: "/dashboard/deleteElement/" + elementId,
+                method: 'DELETE',
+                data: {
+                    id: elementId,
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function(response) {
+                    $('#table').DataTable().ajax.reload();
+                },
+                error: function(error) {
+                    console.error(error);
+                }
+            });
+
+        });
     </script>
 @endsection
+<style>
+    .edit-element {
+        margin-bottom: 5px;
+        width: 100px;
+    }
+
+    .delete-element {
+        margin-bottom: 5px;
+        width: 100px;
+    }
+</style>
