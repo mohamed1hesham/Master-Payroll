@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CiElements;
 use App\Requests\ElementValidator;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 
 class ElementsController extends Controller
 {
@@ -25,6 +25,7 @@ class ElementsController extends Controller
         if (!$request->has('disability')) {
             $validatedData['disability'] = false;
         }
+        $validatedData['added_by'] = Auth::user()->id;
         CiElements::create($validatedData);
         return redirect()->back();
     }
@@ -70,6 +71,7 @@ class ElementsController extends Controller
                 $item->element_name_ar ?? '',
                 $item->order ?? '',
                 $item->disability ?? '',
+                $item->user->name ?? '',
 
             ];
         }

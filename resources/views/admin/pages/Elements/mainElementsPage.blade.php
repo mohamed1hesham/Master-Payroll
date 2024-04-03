@@ -4,7 +4,7 @@
     <div class="container-fluid mt-3">
         <div class="card card-primary">
             <div class="card-header">
-                <h3>Instances</h3>
+                <h3>Elements</h3>
             </div>
             <div class="card-body">
                 <table id="table" class="table">
@@ -16,6 +16,7 @@
                             <th scope="col">element_name_ar</th>
                             <th scope="col">order</th>
                             <th scope="col">disability</th>
+                            <th scope="col">added_by</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -79,7 +80,12 @@
                     {
                         name: "disability",
                         orderable: true
-                    }, {
+                    },
+                    {
+                        name: "added_by",
+                        orderable: true
+                    },
+                    {
                         name: "Actions",
                         orderable: true
                     }

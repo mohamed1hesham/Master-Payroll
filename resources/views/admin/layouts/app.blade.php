@@ -10,10 +10,13 @@
             <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
             -->
     {{-- datatable buttons --}}
-    <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css"
         href="https://cdn.datatables.net/buttons/1.4.0/css/buttons.dataTables.min.css" />
+    <link rel="stylesheet" href="{{ asset('/') }}plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="{{ asset('/') }}plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="{{ asset('/') }}plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     @include('admin.partials.head')
 
 <body class="hold-transition sidebar-mini">
@@ -62,6 +65,7 @@
     <!-- ./wrapper -->
     @stack('js')
     <!-- jQuery -->
+
     <script src="{{ asset('/') }}plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
     <script src="{{ asset('/') }}plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -69,27 +73,28 @@
     <script src="{{ asset('/') }}dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('/') }}dist/js/demo.js"></script>
-
-
-
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
         crossorigin="anonymous"></script>
     <!-- Datatable JS -->
-    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/2.0.0/js/dataTables.min.js"></script>
-    <script src="//cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="{{ asset('/') }}plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="{{ asset('/') }}plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="{{ asset('/') }}plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="{{ asset('/') }}plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="{{ asset('/') }}plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="{{ asset('/') }}plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="{{ asset('/') }}plugins/jszip/jszip.min.js"></script>
+    <script src="{{ asset('/') }}plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="{{ asset('/') }}plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="{{ asset('/') }}plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="{{ asset('/') }}plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="{{ asset('/') }}plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+        toastr.options = {
+            "positionClass": "toast-bottom-right",
 
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.4.0/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.4.0/js/buttons.colVis.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.4.0/js/buttons.print.min.js"></script>
-    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/pdfmake.min.js"></script>
-    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.4.0/js/buttons.flash.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.4.0/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+        };
+    </script>
 </body>
 
 </html>

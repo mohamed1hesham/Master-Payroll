@@ -1,7 +1,6 @@
 @extends('admin.layouts.app')
 @section('content')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
     <div class="container-fluid mt-3">
         <div class="card card-primary">
@@ -50,8 +49,10 @@
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+
+@endsection
+@push('js')
     <script>
         $(document).ready(function() {
             $('#saveBtn').click(function(e) {
@@ -60,10 +61,11 @@
                 $.ajax({
                     url: "{{ isset($record) ? route('dashboard.updateInstance', ['id' => $record->id]) : route('dashboard.createInstance') }}",
                     method: 'POST',
-                    data: formData, 
+                    data: formData,
                     success: function(response) {
                         console.log(response);
                         toastr.success('Data saved successfully!');
+
                         $('#instanceForm').find("input[type=text], textarea").val("");
                     },
                     error: function(xhr, status, error) {
@@ -74,4 +76,4 @@
             });
         });
     </script>
-@endsection
+@endpush

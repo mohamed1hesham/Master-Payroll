@@ -1,10 +1,13 @@
 <?php
 
+use App\Http\Controllers\Api\ApiController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ElementsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PermissionsController;
 use App\Http\Controllers\InstanceController;
+use App\Http\Controllers\MappingController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -41,6 +44,9 @@ Route::group(["prefix" => "dashboard", 'as' => "dashboard.", 'middleware' => "au
 
     Route::delete('deleteInstance/{id}', [InstanceController::class, 'deleteInstance'])->name('dashboard.deleteInstance');
     Route::get('editInstance/{id}', [InstanceController::class, 'editInstance'])->name('dashboard.editInstance');
+
+
+
     Route::get('elements', [ElementsController::class, 'indexMain'])->name('elements');
     Route::get('elementCreation', [ElementsController::class, 'indexCreation'])->name('elementCreation');
     Route::post('createElement', [ElementsController::class, 'create'])->name('createElement');
@@ -49,6 +55,14 @@ Route::group(["prefix" => "dashboard", 'as' => "dashboard.", 'middleware' => "au
     Route::post('update-instance/{id}', [ElementsController::class, 'updateElement'])->name('dashboard.updateElement');
     Route::post('up_instance/{id}', [InstanceController::class, 'update'])->name('updateInstance');
     Route::delete('deleteElement/{id}', [ElementsController::class, 'deleteElement'])->name('dashboard.deleteElement');
+
+
+    Route::get('requestApiElements/{id}', [ApiController::class, 'requestApiPayroll'])->name('dashboard.requestApiElements');
+    Route::get('elementMapping/{id}', [ApiController::class, 'fetchElementsByInstanceId'])->name('dashboard.fetchElementsByInstanceId');
+    Route::get('/postMapping', [MappingController::class, 'mappingFunction']);
+
+
+    Route::get('/reports', [ReportController::class, 'index'])->name('reports');
 });
 
 

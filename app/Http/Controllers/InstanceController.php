@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CiInstances;
 use App\Requests\InstanceValidator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class InstanceController extends Controller
@@ -42,20 +43,27 @@ class InstanceController extends Controller
     }
     public function create(InstanceValidator $request)
     {
+
         $validatedData = $request->validated();
         $query = ['email' => $validatedData['username'], 'password' => $validatedData['password']];
         $response = $this->postGuzzle($validatedData['base_url'], $query);
         $validatedData['token'] = $response->access_token;
+        $validatedData['added_by'] = Auth::user()->id;
         CiInstances::create($validatedData);
         return redirect()->back();
     }
+    
     public function update(InstanceValidator $request, $id)
     {
         $validatedData = $request->validated();
+        $query = ['email' => $validatedData['username'], 'password' => $validatedData['password']];
+        $response = $this->postGuzzle($validatedData['base_url'], $query);
+        $validatedData['token'] = $response->access_token;
         // $validatedData['password'] = Hash::make($validatedData['password']);
         CiInstances::find($id)->update($validatedData);
         return redirect()->back();
     }
+    
     public function editInstance($id)
     {
         $record = CiInstances::find($id);
@@ -85,6 +93,7 @@ class InstanceController extends Controller
                 $item->username ?? '',
                 $item->password ?? '',
                 $item->token ?? '',
+                $item->user->name ?? '',
 
             ];
         }
