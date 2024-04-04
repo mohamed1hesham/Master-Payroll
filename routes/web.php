@@ -63,6 +63,8 @@ Route::group(["prefix" => "dashboard", 'as' => "dashboard.", 'middleware' => "au
 
 
     Route::get('/reports', [ReportController::class, 'index'])->name('reports');
+    Route::get('/payrolls-report', [ReportController::class, 'showPayrollsReport'])->name('payrolls-report');
+    Route::get('/elements-report', [ReportController::class, 'showElementsReport'])->name('elements-report');
 });
 
 

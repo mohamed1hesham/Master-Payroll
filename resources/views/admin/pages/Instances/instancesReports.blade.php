@@ -60,6 +60,7 @@
             background-color: #f2f2f2;
         }
     </style>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <div class="container-fluid mt-3">
         <div class="card card-primary">
@@ -70,58 +71,54 @@
                 <ul id="myUL">
                     <li><span class="caret">Instances Report</span>
                         <ul class="nested">
-                            <a href="">
-                                <li><i class="fa fa-file"></i> Report</li>
+                            <a href="#" id="payrollsReport">
+                                <li><i class="fa fa-file"></i> Payrolls Report</li>
                             </a>
+                            <a href="#" id="elementsReport">
+                                <li><i class="fa fa-file"></i> Elements Report</li>
+                            </a>
+                        </ul>
                     </li>
                 </ul>
-                </li>
-                </ul>
-
-                <table>
-                    <thead>
-                        <tr>
-                            <th>name</th>
-                            <th>payroll_id</th>
-                            <th>period_end_date</th>
-                            <th>start_effective_date</th>
-                            <th>end_effective_date</th>
-                            <th>priority</th>
-                            <th>type</th>
-                            <th>is_recurring</th>
-                            <th>instance_id</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($mergedData as $item)
-                            <tr>
-                                <td>{{ $item->name }}</td>
-                                <td>{{ $item->payroll_id }}</td>
-                                <td>{{ $item->period_end_date }}</td>
-                                <td>{{ $item->start_effective_date }}</td>
-                                <td>{{ $item->end_effective_date }}</td>
-                                <td>{{ $item->priority }}</td>
-                                <td>{{ $item->type }}</td>
-                                <td>{{ $item->is_recurring }}</td>
-                                <td>{{ $item->instance_id }}</td>
-                                <!-- Add more columns as needed -->
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                <br><br>
+                <!-- Content section to be loaded dynamically -->
+                <div id="contentSection">
+                    <!-- Content will be loaded dynamically here -->
+                </div>
             </div>
             <div class="card-footer">
-                <a href="/dashboard" class="btn btn-sm btn-danger ">Back</a>
-
+                <a href="/dashboard" class="btn btn-sm btn-danger">Back</a>
             </div>
         </div>
-
     </div>
     <script>
-        var toggler = document.getElementsByClassName("caret");
-        var i;
+        document.getElementById("payrollsReport").addEventListener("click", function(event) {
+            event.preventDefault(); // Prevent the default link behavior
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "/dashboard/payrolls-report", true); // Replace with your Laravel route
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    document.getElementById("contentSection").innerHTML = xhr.responseText;
+                }
+            };
+            xhr.send();
+        });
 
-        for (i = 0; i < toggler.length; i++) {
+        document.getElementById("elementsReport").addEventListener("click", function(event) {
+            event.preventDefault(); // Prevent the default link behavior
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "/dashboard/elements-report", true); // Replace with your Laravel route
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    document.getElementById("contentSection").innerHTML = xhr.responseText;
+                }
+            };
+            xhr.send();
+        });
+
+        // JavaScript for toggling nested list
+        var toggler = document.getElementsByClassName("caret");
+        for (var i = 0; i < toggler.length; i++) {
             toggler[i].addEventListener("click", function() {
                 this.parentElement.querySelector(".nested").classList.toggle("active");
                 this.classList.toggle("caret-down");

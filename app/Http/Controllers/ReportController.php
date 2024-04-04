@@ -10,9 +10,16 @@ class ReportController extends Controller
 {
     public function index()
     {
-        $elements = InstancesElements::all();
+        return view('admin.pages.Instances.instancesReports');
+    }
+    public function showPayrollsReport()
+    {
         $payrolls = InstancesPayroll::all();
-        $mergedData = $elements->merge($payrolls);
-        return view('admin.pages.Instances.instancesReports', ['mergedData' => $mergedData]);
+        return view('admin.pages.Instances.reports', ['payrolls' => $payrolls]);
+    }
+    public function showElementsReport()
+    {
+        $elements = InstancesElements::all();
+        return view('admin.pages.Instances.reports', ['elements' => $elements]);
     }
 }

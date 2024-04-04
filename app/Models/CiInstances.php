@@ -13,4 +13,8 @@ class CiInstances extends Model
     {
         return $this->belongsTo(User::class, 'added_by', 'id');
     }
+    public function payroll()
+    {
+        return $this->hasMany(InstancesElements::class, 'instance_id', 'id');
+    }
 }
