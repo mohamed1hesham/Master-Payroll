@@ -7,7 +7,7 @@
 
     <div class="container-fluid mt-3">
         <div class="card border-primary">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header  text-white"style="background-color: #1f2a3a">
                 <h3 class="card-title">Instance Element Mapping</h3>
             </div>
             <div class="card-body">

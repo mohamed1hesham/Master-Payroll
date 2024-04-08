@@ -57,7 +57,7 @@ Route::group(["prefix" => "dashboard", 'as' => "dashboard.", 'middleware' => "au
     Route::delete('deleteElement/{id}', [ElementsController::class, 'deleteElement'])->name('dashboard.deleteElement');
 
 
-    Route::get('requestApiElements/{id}', [ApiController::class, 'requestApiPayroll'])->name('dashboard.requestApiElements');
+    Route::get('requestApiElements/{id}', [ApiController::class, 'IntegrationFunc'])->name('dashboard.requestApiElements');
     Route::get('elementMapping/{id}', [ApiController::class, 'fetchElementsByInstanceId'])->name('dashboard.fetchElementsByInstanceId');
     Route::get('/postMapping', [MappingController::class, 'mappingFunction']);
 
@@ -65,6 +65,10 @@ Route::group(["prefix" => "dashboard", 'as' => "dashboard.", 'middleware' => "au
     Route::get('/reports', [ReportController::class, 'index'])->name('reports');
     Route::get('/payrolls-report', [ReportController::class, 'showPayrollsReport'])->name('payrolls-report');
     Route::get('/elements-report', [ReportController::class, 'showElementsReport'])->name('elements-report');
+    Route::get('/periods-report', [ReportController::class, 'showPeriodsReport'])->name('periods-report');
+    Route::post('/instances-payrolls-report', [ReportController::class, "instancesPayrollsReport"])->name('instancesPayrollsReport');
+    Route::post('/instances-elements-report', [ReportController::class, "instancesElementsReport"])->name('instancesElementsReport');
+    Route::post('/instances-periods-report', [ReportController::class, "instancesPeriodsReport"])->name('instancesPeriodsReport');
 });
 
 

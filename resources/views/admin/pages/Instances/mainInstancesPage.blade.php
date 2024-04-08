@@ -3,30 +3,33 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <div class="container-fluid mt-3">
         <div class="card card-primary">
-            <div class="card-header">
+            <div class="card-header" style="background-color: #1f2a3a">
                 <h3>Instances</h3>
             </div>
             <div class="card-body">
-                <table id="table" class="table">
-                    <thead class="thead-light ">
+                <div class="table-responsive">
+                    <table id="table" class="table">
+                        <thead class="thead-light ">
 
-                        <tr>
-                            <th scope="col">id</th>
-                            <th scope="col">instance_name</th>
-                            <th scope="col">base_url</th>
-                            <th scope="col">username</th>
-                            <th scope="col">password</th>
-                            <th scope="col">token</th>
-                            <th scope="col">added_by</th>
-                            <th scope="col">Actions</th>
-                        </tr>
-                    </thead>
-                </table>
+                            <tr>
+                                <th scope="col">id</th>
+                                <th scope="col">instance_name</th>
+                                <th scope="col">base_url</th>
+                                <th scope="col">username</th>
+                                <th scope="col">password</th>
+                                <th scope="col">token</th>
+                                <th scope="col">added_by</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
             </div>
             <div class="card-footer">
 
                 <a href="/dashboard" class="btn btn-lg btn-danger ">Back</a>
-                <button id="instanceCreationBtn" type="button" class="btn btn-lg btn-primary ">Add
+                <button id="instanceCreationBtn" type="button" class="btn btn-lg "
+                    style="background-color: #2d4059;color:white">Add
                     Instance</button>
 
             </div>
@@ -49,9 +52,6 @@
             });
         })
         $(function() {
-            $(document).ready(function() {
-                $('#table').DataTable();
-            });
             $('#table').DataTable({
 
                 serverSide: true,
@@ -108,13 +108,12 @@
                     ['10', '25', '50', '100', 'All']
                 ],
                 dom: 'Blfrtip',
-                buttons: [
+                buttons: ['colvis',
                     "copy",
                     "csv",
                     "excel",
                     "pdf",
-                    "print",
-                    "colvis"
+                    "print"
                 ],
                 autoFill: true,
                 columnDefs: [{
@@ -177,14 +176,14 @@
 
         });
         $(document).on('click', '.instance-element-integration', function() {
-            var data = $(this).closest('tr').find('td').map(function() {
+            var button = $(this);
+            var data = button.closest('tr').find('td').map(function() {
                 return $(this).text();
             }).get();
             var instanceId = data[0];
-            $('#integration-instance-element-btn').prop('disabled', true).removeClass("btn-success").addClass(
-                    "btn-secondary")
-                .children(
-                    "i").addClass("fa-spin");
+            button.prop('disabled', true).removeClass("btn-success").addClass("btn-secondary")
+                .children("i").addClass("fa-spin");
+
 
             $.ajax({
 
@@ -196,16 +195,14 @@
                 },
                 success: function() {
                     // window.location.href = '/request';
-                    $('#integration-instance-element-btn').children("i").removeClass("fa-spin");
-                    $('#integration-instance-element-btn').prop('disabled', false).removeClass(
-                        "btn-secondary").addClass(
-                        "btn-success");
+                    button.children("i").removeClass("fa-spin");
+                    button.prop('disabled', false).removeClass("btn-secondary").addClass("btn-success");
                     toastr.success('Request Successful');
                 },
                 error: function(error) {
                     console.error(error);
-                    $('#integration-instance-element-btn').prop('disabled', false);
-                    toastr.success('Request Faild', {
+                    button.prop('disabled', false);
+                    toastr.error('Request Failed', {
                         closeButton: true
                     });
                 }

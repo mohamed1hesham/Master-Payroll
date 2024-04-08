@@ -3,34 +3,38 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <div class="container-fluid mt-3">
         <div class="card card-primary">
-            <div class="card-header">
+            <div class="card-header" style="background-color: #1f2a3a">
                 <h3>Elements</h3>
             </div>
             <div class="card-body">
-                <table id="table" class="table">
-                    <thead class="thead-light ">
+                <div class="table-responsive">
+                    <table id="table" class="table">
+                        <thead class="thead-light ">
 
-                        <tr>
-                            <th scope="col">id</th>
-                            <th scope="col">element_name_en</th>
-                            <th scope="col">element_name_ar</th>
-                            <th scope="col">order</th>
-                            <th scope="col">disability</th>
-                            <th scope="col">added_by</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                </table>
+                            <tr>
+                                <th scope="col">id</th>
+                                <th scope="col">element_name_en</th>
+                                <th scope="col">element_name_ar</th>
+                                <th scope="col">order</th>
+                                <th scope="col">disability</th>
+                                <th scope="col">added_by</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
             </div>
             <div class="card-footer">
 
                 <a href="/dashboard" class="btn btn-lg btn-danger ">Back</a>
-                <button id="elementCreationBtn" type="button" class="btn btn-lg btn-primary ">Add
+                <button id="elementCreationBtn" type="button" class="btn btn-lg "
+                    style="background-color: #2d4059;color:white">Add
                     Element</button>
             </div>
         </div>
 
     </div>
+
     <script>
         $('#elementCreationBtn').click(function() {
             $.ajax({
@@ -45,10 +49,15 @@
 
             });
         })
+
         $(function() {
-            $(document).ready(function() {
-                $('#table').DataTable();
-            });
+            pdfMake.fonts = {
+                Arial: {
+                    normal: 'arial.ttf',
+                    bold: 'arial.ttf',
+                }
+
+            }
             $('#table').DataTable({
 
                 serverSide: true,
@@ -87,7 +96,7 @@
                     },
                     {
                         name: "Actions",
-                        orderable: true
+                        orderable: false
                     }
 
 
@@ -102,7 +111,34 @@
                     ['10', '25', '50', '100', 'All']
                 ],
                 dom: 'Blfrtip',
-                buttons: ['colvis', 'excel', 'csv', 'print', 'copy', 'pdf'],
+                buttons: [
+                    'colvis', 'excel', {
+                        extend: 'pdf',
+                        text: 'PDF',
+                        exportOptions: {
+                            format: {
+                                body: function(data) {
+                                    const arabic = /[\u0600-\u06FF]/;
+                                    if (arabic.test(data)) {
+                                        return data.split(' ').reverse().join('  ').trim();
+                                    }
+                                    return data;
+                                },
+                                header: function(data) {
+                                    const arabic = /[\u0600-\u06FF]/;
+                                    if (arabic.test(data)) {
+                                        return data.split(' ').reverse().join('  ').trim();
+                                    }
+                                    return data;
+                                }
+                            },
+                            columns: ':visible:not(:eq(6))'
+                        },
+                        customize: function(doc) {
+                            doc.defaultStyle.font = 'Arial';
+                        }
+                    }, 'csv', 'print', 'copy',
+                ],
                 autoFill: true,
                 columnDefs: [{
                     targets: -1,

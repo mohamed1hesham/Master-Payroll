@@ -48,6 +48,7 @@ class ElementsController extends Controller
         CiElements::find($id)->update($validatedData);
         return redirect()->back();
     }
+
     public function elementsData(Request $request)
     {
 
