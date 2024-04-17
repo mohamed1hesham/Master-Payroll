@@ -66,9 +66,16 @@ Route::group(["prefix" => "dashboard", 'as' => "dashboard.", 'middleware' => "au
     Route::get('/payrolls-report', [ReportController::class, 'showPayrollsReport'])->name('payrolls-report');
     Route::get('/elements-report', [ReportController::class, 'showElementsReport'])->name('elements-report');
     Route::get('/periods-report', [ReportController::class, 'showPeriodsReport'])->name('periods-report');
+    Route::get('/run-values-report', [ReportController::class, 'showRunValuesReport'])->name('run-values-report');
+
+
+
+
     Route::post('/instances-payrolls-report', [ReportController::class, "instancesPayrollsReport"])->name('instancesPayrollsReport');
     Route::post('/instances-elements-report', [ReportController::class, "instancesElementsReport"])->name('instancesElementsReport');
     Route::post('/instances-periods-report', [ReportController::class, "instancesPeriodsReport"])->name('instancesPeriodsReport');
+
+    Route::post('/instances-run-values-report', [ReportController::class, "instancesRunValuesReport"])->name('instancesRunValuesReport');
 });
 
 

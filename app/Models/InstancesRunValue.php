@@ -9,4 +9,8 @@ class InstancesRunValue extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    public function instanceData()
+    {
+        return $this->belongsTo(CiInstances::class, 'instance_id', 'id');
+    }
 }
