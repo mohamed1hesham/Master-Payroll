@@ -95,6 +95,9 @@
                             <a href="#" class="hovForLi" id="periodsReport">
                                 <li><i class="fa fa-file"></i> Periods Report</li>
                             </a>
+                            <a href="#" class="hovForLi" id="periodsReport">
+                                <li><i class="fa fa-file"></i> RunValues Report</li>
+                            </a>
                         </ul>
                     </li>
                 </ul>
