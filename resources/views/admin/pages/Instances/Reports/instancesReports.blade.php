@@ -83,6 +83,27 @@
                 <h3>Reports</h3>
             </div>
             <div class="card-body">
+                <div class="m-3">
+                    <button id="toggleInstancesBtn" style="background-color: #2d4059;color:white" class="btn">Make
+                        Comparasion</button>
+                </div>
+
+                <div class="m-3" id="instanceFilterContainer" style="display: none;">
+                    <label for="instanceFilter" class="form-label">Select Instances:</label>
+                    <select class="form-select" id="instanceFilter">
+                        <option value=""></option>
+                        @foreach ($instances as $instance)
+                            <option value="{{ $instance->id }}">{{ $instance->instance_name }}</option>
+                        @endforeach
+                    </select>
+                    <br>
+                    <select class="form-select" id="instanceFilter2">
+                        <option value=""></option>
+                        @foreach ($instances as $instance)
+                            <option value="{{ $instance->id }}">{{ $instance->instance_name }}</option>
+                        @endforeach
+                    </select>
+                </div>
                 <ul id="myUL">
                     <li><span class="caret">Instances Report</span>
                         <ul class="nested">
@@ -113,8 +134,11 @@
     <script>
         document.getElementById("payrollsReport").addEventListener("click", function(event) {
             event.preventDefault();
+            var instanceId = document.getElementById("instanceFilter").value;
+            var instanceId2 = document.getElementById("instanceFilter2").value;
             var xhr = new XMLHttpRequest();
-            xhr.open("GET", "/dashboard/payrolls-report", true);
+            xhr.open("GET", "/dashboard/payrolls-report",
+                true); // Pass instance ID in the URL
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200) {
@@ -129,6 +153,8 @@
                                 data: function(d) {
                                     d._token = "{{ csrf_token() }}";
                                     d.date = $('#date').val();
+                                    d.instance_id = instanceId;
+                                    d.instance_id2 = instanceId2;
                                 },
 
                             },
@@ -194,6 +220,8 @@
 
         document.getElementById("elementsReport").addEventListener("click", function(event) {
             event.preventDefault();
+            var instanceId = document.getElementById("instanceFilter").value; // Get the selected instance ID
+            var instanceId2 = document.getElementById("instanceFilter2").value;
             var xhr = new XMLHttpRequest();
             xhr.open("GET", "/dashboard/elements-report", true);
             xhr.onreadystatechange = function() {
@@ -210,6 +238,8 @@
                                 data: function(d) {
                                     d._token = "{{ csrf_token() }}";
                                     d.date = $('#date').val();
+                                    d.instance_id = instanceId;
+                                    d.instance_id2 = instanceId2;
                                 },
 
                             },
@@ -282,6 +312,8 @@
 
         document.getElementById("runValuesReport").addEventListener("click", function(event) {
             event.preventDefault();
+            var instanceId = document.getElementById("instanceFilter").value;
+            var instanceId2 = document.getElementById("instanceFilter2").value;
             var xhr = new XMLHttpRequest();
             xhr.open("GET", "/dashboard/run-values-report", true);
             xhr.onreadystatechange = function() {
@@ -298,6 +330,8 @@
                                 data: function(d) {
                                     d._token = "{{ csrf_token() }}";
                                     d.date = $('#date').val();
+                                    d.instance_id = instanceId;
+                                    d.instance_id2 = instanceId2;
                                 },
 
                             },
@@ -694,6 +728,8 @@
 
         document.getElementById("periodsReport").addEventListener("click", function(event) {
             event.preventDefault();
+            var instanceId = document.getElementById("instanceFilter").value; // Get the selected instance ID
+            var instanceId2 = document.getElementById("instanceFilter2").value;
             var xhr = new XMLHttpRequest();
             xhr.open("GET", "/dashboard/periods-report", true);
             xhr.onreadystatechange = function() {
@@ -710,6 +746,8 @@
                                 data: function(d) {
                                     d._token = "{{ csrf_token() }}";
                                     d.date = $('#date').val();
+                                    d.instance_id = instanceId;
+                                    d.instance_id2 = instanceId2;
                                 },
 
                             },
@@ -789,5 +827,10 @@
                 this.classList.toggle("caret-down");
             });
         }
+        $("#toggleInstancesBtn").click(function() {
+            $("#instanceFilterContainer").toggle();
+            $("#instanceFilter, #instanceFilter2").val("");
+
+        });
     </script>
 @endsection

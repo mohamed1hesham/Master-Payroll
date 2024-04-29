@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CiInstances;
 use App\Models\InstancesElements;
 use App\Models\InstancesPayroll;
 use App\Models\InstancesPeriod;
@@ -12,7 +13,10 @@ class ReportController extends Controller
 {
     public function index()
     {
-        return view('admin.pages.Instances.Reports.instancesReports');
+        $instances = CiInstances::all();
+
+
+        return view('admin.pages.Instances.Reports.instancesReports', ['instances' => $instances]);
     }
 
     public function showPayrollsReport()
@@ -34,20 +38,27 @@ class ReportController extends Controller
         return view('admin.pages.Instances.Reports.instancesRunValuesReport');
     }
 
-    private function fetchReportData($query, $searchValue, $start, $length)
+    private function fetchReportData($query, $searchValue, $start, $length, $instanceIds)
     {
+        // Filter records based on search value
         if ($searchValue) {
             $query->whereHas('instanceData', function ($query) use ($searchValue) {
                 $query->where('instance_name', 'LIKE', '%' . $searchValue . '%');
             });
         }
 
+        // Filter records based on multiple instance IDs
+        if (!empty($instanceIds)) {
+            $query->whereIn('instance_id', $instanceIds);
+        }
+
+        // Count total records
         $totalRecords = $query->count();
 
+        // Apply pagination
         if ($start > 0) {
             $query->skip($start);
         }
-
         $instances = $query->take($length)->get();
 
         return [$totalRecords, $instances];
@@ -65,15 +76,18 @@ class ReportController extends Controller
 
     public function instancesPayrollsReport(Request $request)
     {
-        $draw = $request->get('draw');
-        $start = $request->get('start');
-        $length = $request->get('length');
-        $searchValue = $request->get('search')['value'];
+        $instanceIds = array_merge((array) $request->input('instance_id'), (array) $request->input('instance_id2'));
+        $draw = $request->input('draw');
+        $start = $request->input('start');
+        $length = $request->input('length');
+        $searchValue = $request->input('search.value');
 
-        $query = InstancesPayroll::select('name', 'payroll_id', 'period_end_date', 'start_effective_date', 'end_effective_date', 'instance_id')->with('instanceData');
+        $query = InstancesPayroll::select('name', 'payroll_id', 'period_end_date', 'start_effective_date', 'end_effective_date', 'instance_id')
+            ->with('instanceData');
 
-        list($totalRecords, $instances) = $this->fetchReportData($query, $searchValue, $start, $length);
+        list($totalRecords, $instances) = $this->fetchReportData($query, $searchValue, $start, $length, $instanceIds);
 
+        // Format data for response
         $data_arr = $instances->map(function ($item) {
             return [
                 $item->name ?? '',
@@ -91,14 +105,15 @@ class ReportController extends Controller
 
     public function instancesElementsReport(Request $request)
     {
+        $instanceIds = array_merge((array) $request->input('instance_id'), (array) $request->input('instance_id2'));
+
         $draw = $request->get('draw');
         $start = $request->get('start');
         $length = $request->get('length');
         $searchValue = $request->get('search')['value'];
-
         $query = InstancesElements::select('name', 'priority', 'type', 'is_recurring', 'is_payroll_transferred', 'sequence', 'currency_id', 'instance_id', 'element_id')->with('instanceData');
 
-        list($totalRecords, $instances) = $this->fetchReportData($query, $searchValue, $start, $length);
+        list($totalRecords, $instances) = $this->fetchReportData($query, $searchValue, $start, $length, $instanceIds);
 
         $data_arr = $instances->map(function ($item) {
             return [
@@ -120,6 +135,8 @@ class ReportController extends Controller
 
     public function instancesPeriodsReport(Request $request)
     {
+        $instanceIds = array_merge((array) $request->input('instance_id'), (array) $request->input('instance_id2'));
+
         $draw = $request->get('draw');
         $start = $request->get('start');
         $length = $request->get('length');
@@ -127,7 +144,7 @@ class ReportController extends Controller
 
         $query = InstancesPeriod::select('period_id', 'name', 'from', 'to', 'closed', 'soft_closed', 'status', 'instance_id',  'payroll_id')->with('instanceData', 'payrollData');
 
-        list($totalRecords, $instances) = $this->fetchReportData($query, $searchValue, $start, $length);
+        list($totalRecords, $instances) = $this->fetchReportData($query, $searchValue, $start, $length, $instanceIds);
 
         $data_arr = $instances->map(function ($item) {
             return [
@@ -149,6 +166,8 @@ class ReportController extends Controller
     }
     public function instancesRunValuesReport(Request $request)
     {
+        $instanceIds = array_merge((array) $request->input('instance_id'), (array) $request->input('instance_id2'));
+
         $draw = $request->get('draw');
         $start = $request->get('start');
         $length = $request->get('length');
@@ -156,7 +175,7 @@ class ReportController extends Controller
 
         $query = InstancesRunValue::select('name', 'person_number', 'HireDate', 'payroll_id', 'period_id', 'instance_id', 'Basic_Salary', 'Basic_Salary_worked_days', 'Worked_Days_diff', 'Accommodation_allowance_fixed', 'Nature_of_Work', 'Car_Allowance_fixed', 'Transportation_allowance_Fix', 'Transport_Fix_Non_Taxable', 'Transport_Fix_Taxable', 'Transportation_Allowance_non_tax_VAR', 'Car_allowance_non_taxable', 'Fuel_Allowance_non_taxable', 'Nature_of_Work_Allow_NTF', 'Representation_Allowance_NTF', 'Pay_Review_Bulk_Payment', 'Overtime', 'Amount_OverTime', 'Bonus_Tax_Applicable', 'Bonus_Non_Tax_Applicable', 'Diff_Salaries', 'Incentives', 'Vacation_encashment', 'Notice_period_compensation', 'Transport_allowance_Non_Tax', 'Vacation_Encashment_Non_Tax', 'other_plus', 'Travel_to_Sokhna', 'Travel_to_Sahel', 'Working_days_Additions', 'Food_Allowance_Non_Taxable', 'Incentives_Non_Taxable', 'COLA', 'Finance_Statement_Bonus', 'Traffic_Violation', 'Mobile_Deduction', 'Loan', 'Deduction_fixed', 'Other_Deduction', 'social_insurance', 'Taxes', 'Misconduct', 'Non_Working_days', 'Misconduct_Days', 'half_Gross_salary', 'Sick_Leave_Social_Insurance', 'Social_insurance_ER_share', 'Medical_Insurance', 'Life_Insurance', 'Unpaid_Leave', 'Unpaid_leave_half_Days', 'Penalties', 'Absence', 'Unauthorized_Absence', 'Lateness_between_1_and_60_minutes', 'Lateness_between_60_and_120_minutes', 'Lateness_between_120_and_beyond', 'Missing_sign_in_out', 'Early_out', 'Misconduct_OTL', 'CP_Penalties', 'penalty_transfer', 'Over_Time_Request', 'Business_Trip_Overtime', 'Business_Trip_Overtime_Holiday', 'Holiday_Overtime', 'Overtime_OTL', 'loan_installment', 'loan_capital_amount', 'Loan_Value', 'loan_comment', 'Traffic_violations_installment', 'Traffic_violations_capital_amount', 'Traffic_violations_comment', 'Martyrs_fund', 'Diff_Start_Plus', 'Diff_Start_minus', 'Gross_Salary', 'Insurance_salary', 'Taxable_salary', 'Total_Earnings', 'Total_Deductions', 'Net_Salary')->with('instanceData');
 
-        list($totalRecords, $instances) = $this->fetchReportData($query, $searchValue, $start, $length);
+        list($totalRecords, $instances) = $this->fetchReportData($query, $searchValue, $start, $length, $instanceIds);
 
         $data_arr = $instances->map(function ($item) {
             return [
@@ -258,12 +277,6 @@ class ReportController extends Controller
                 $item->Total_Earnings ?? '',
                 $item->Total_Deductions ?? '',
                 $item->Net_Salary ?? '',
-
-
-
-
-
-
             ];
         })->toArray();
 
