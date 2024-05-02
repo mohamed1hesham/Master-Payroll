@@ -105,6 +105,6 @@ Route::put('roles/{roleId}/give-permissions', [RoleController::class, 'givePermi
 Route::resource('users', UserController::class);
 Route::get('users/{userId}/delete', [UserController::class, 'destroy']);
 
-Route::get('/auth/redirect', [LoginController::class, 'authGithubRedirect'])->name('auth/redirect');
+// Route::get('/auth/redirect', [LoginController::class, 'authGithubRedirect'])->name('auth/redirect');
 
-Route::get('/auth/callback', [LoginController::class, 'authGithubCallback']);
+// Route::get('/auth/callback', [LoginController::class, 'authGithubCallback']);

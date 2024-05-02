@@ -40,27 +40,19 @@ class ReportController extends Controller
 
     private function fetchReportData($query, $searchValue, $start, $length, $instanceIds)
     {
-        // Filter records based on search value
         if ($searchValue) {
             $query->whereHas('instanceData', function ($query) use ($searchValue) {
                 $query->where('instance_name', 'LIKE', '%' . $searchValue . '%');
             });
         }
-
-        // Filter records based on multiple instance IDs
         if (!empty($instanceIds)) {
             $query->whereIn('instance_id', $instanceIds);
         }
-
-        // Count total records
         $totalRecords = $query->count();
-
-        // Apply pagination
         if ($start > 0) {
             $query->skip($start);
         }
         $instances = $query->take($length)->get();
-
         return [$totalRecords, $instances];
     }
 
@@ -87,7 +79,6 @@ class ReportController extends Controller
 
         list($totalRecords, $instances) = $this->fetchReportData($query, $searchValue, $start, $length, $instanceIds);
 
-        // Format data for response
         $data_arr = $instances->map(function ($item) {
             return [
                 $item->name ?? '',
@@ -183,6 +174,7 @@ class ReportController extends Controller
                 $item->person_number ?? '',
                 $item->HireDate ?? '',
                 $item->payroll_id ?? '',
+
                 $item->period_id ?? '',
                 $item->instance_id ?? '',
                 $item->instanceData->instance_name ?? '',
@@ -279,7 +271,6 @@ class ReportController extends Controller
                 $item->Net_Salary ?? '',
             ];
         })->toArray();
-
         return response()->json($this->prepareResponse($draw, $totalRecords, $data_arr));
     }
 }

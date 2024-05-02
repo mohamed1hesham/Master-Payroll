@@ -27,8 +27,8 @@
             </div>
             <div class="card-footer">
 
-                <a href="/dashboard" class="btn btn-lg btn-danger ">Back</a>
-                <button id="instanceCreationBtn" type="button" class="btn btn-lg "
+                <a href="/dashboard" class="btn btn-sm btn-danger ">Back</a>
+                <button id="instanceCreationBtn" type="button" class="btn btn-sm "
                     style="background-color: #2d4059;color:white">Add
                     Instance</button>
 

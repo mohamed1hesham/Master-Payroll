@@ -138,12 +138,11 @@
             var instanceId2 = document.getElementById("instanceFilter2").value;
             var xhr = new XMLHttpRequest();
             xhr.open("GET", "/dashboard/payrolls-report",
-                true); // Pass instance ID in the URL
+                true);
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200) {
                         document.getElementById("contentSection").innerHTML = xhr.responseText;
-                        // Initialize DataTables after content is loaded
                         $('#table').DataTable({
                             serverSide: true,
                             processing: true,
@@ -206,7 +205,22 @@
                                 "print"
                             ],
                             autoFill: true,
+                            // initComplete: function(settings, json) {
+                            //     var table = $('#table').DataTable();
+                            //     var columns = table.settings().init().columns;
 
+                            //     columns.forEach(function(column, index) {
+                            //         var data = table.column(index).data()
+                            //             .toArray();
+                            //         var isAllZeros = data.every(function(value) {
+                            //             return value === 0 || value === '0' ||
+                            //                 value === null || value === '';
+                            //         });
+                            //         if (isAllZeros) {
+                            //             table.column(index).visible(false);
+                            //         }
+                            //     });
+                            // }
                         });
                     } else {
                         console.error("Error fetching data:", xhr.status);
@@ -220,7 +234,7 @@
 
         document.getElementById("elementsReport").addEventListener("click", function(event) {
             event.preventDefault();
-            var instanceId = document.getElementById("instanceFilter").value; // Get the selected instance ID
+            var instanceId = document.getElementById("instanceFilter").value;
             var instanceId2 = document.getElementById("instanceFilter2").value;
             var xhr = new XMLHttpRequest();
             xhr.open("GET", "/dashboard/elements-report", true);
@@ -228,7 +242,6 @@
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200) {
                         document.getElementById("contentSection").innerHTML = xhr.responseText;
-                        // Initialize DataTables after content is loaded
                         $('#table').DataTable({
                             serverSide: true,
                             processing: true,
@@ -298,7 +311,22 @@
                                 "print"
                             ],
                             autoFill: true,
+                            // initComplete: function(settings, json) {
+                            //     var table = $('#table').DataTable();
+                            //     var columns = table.settings().init().columns;
 
+                            //     columns.forEach(function(column, index) {
+                            //         var data = table.column(index).data()
+                            //             .toArray();
+                            //         var isAllZeros = data.every(function(value) {
+                            //             return value === 0 || value === '0' ||
+                            //                 value === null || value === '';
+                            //         });
+                            //         if (isAllZeros) {
+                            //             table.column(index).visible(false);
+                            //         }
+                            //     });
+                            // }
                         });
                     } else {
                         console.error("Error fetching data:", xhr.status);
@@ -320,7 +348,6 @@
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200) {
                         document.getElementById("contentSection").innerHTML = xhr.responseText;
-                        // Initialize DataTables after content is loaded
                         $('#table').DataTable({
                             serverSide: true,
                             processing: true,
@@ -336,366 +363,361 @@
 
                             },
                             columns: [{
-                                    name: "name",
-                                    orderable: true
-                                }, {
-
-                                    name: "person_number",
-                                    orderable: true
-                                }, {
-
-                                    name: "HireDate",
-                                    orderable: true
-                                }, {
-
-                                    name: "payroll_id",
-                                    orderable: true
-                                }, {
-
-                                    name: "period_id",
-                                    orderable: true
-                                }, {
-
-                                    name: "instance_id",
-                                    orderable: true
-                                }, {
-
-                                    name: "instance_name",
-                                    orderable: true
-                                }, {
-
-                                    name: "Basic_Salary",
-                                    orderable: true
-                                }, {
-
-                                    name: "Basic_Salary_worked_days",
-                                    orderable: true
-                                }, {
-
-                                    name: "Worked_Days_diff",
-                                    orderable: true
-                                }, {
-
-                                    name: "Accommodation_allowance_fixed",
-                                    orderable: true
-                                }, {
-
-                                    name: "Nature_of_Work",
-                                    orderable: true
-                                }, {
-
-                                    name: "Car_Allowance_fixed",
-                                    orderable: true
-                                }, {
-
-                                    name: "Transportation_allowance_Fix",
-                                    orderable: true
-                                }, {
-
-                                    name: "Transport_Fix_Non_Taxable",
-                                    orderable: true
-                                }, {
-
-                                    name: "Transport_Fix_Taxable",
-                                    orderable: true
-                                }, {
-
-                                    name: "Transportation_Allowance_non_tax_VAR",
-                                    orderable: true
-                                }, {
-
-                                    name: "Car_allowance_non_taxable",
-                                    orderable: true
-                                }, {
-
-                                    name: "Fuel_Allowance_non_taxable",
-                                    orderable: true
-                                }, {
-
-                                    name: "Nature_of_Work_Allow_NTF",
-                                    orderable: true
-                                }, {
-
-                                    name: "Representation_Allowance_NTF",
-                                    orderable: true
-                                }, {
-
-                                    name: "Pay_Review_Bulk_Payment",
-                                    orderable: true
-                                }, {
-
-                                    name: "Overtime",
-                                    orderable: true
-                                }, {
-
-                                    name: "Amount_OverTime",
-                                    orderable: true
-                                }, {
-
-                                    name: "Bonus_Tax_Applicable",
-                                    orderable: true
-                                }, {
-
-                                    name: "Bonus_Non_Tax_Applicable",
-                                    orderable: true
-                                }, {
-
-                                    name: "Diff_Salaries",
-                                    orderable: true
-                                }, {
-
-                                    name: "Incentives",
-                                    orderable: true
-                                }, {
-
-                                    name: "Vacation_encashment",
-                                    orderable: true
-                                }, {
-
-                                    name: "Notice_period_compensation",
-                                    orderable: true
-                                }, {
-
-                                    name: "Transport_allowance_Non_Tax",
-                                    orderable: true
-                                }, {
-
-                                    name: "Vacation_Encashment_Non_Tax",
-                                    orderable: true
-                                }, {
-
-                                    name: "other_plus",
-                                    orderable: true
-                                }, {
-
-                                    name: "Travel_to_Sokhna",
-                                    orderable: true
-                                }, {
-
-                                    name: "Travel_to_Sahel",
-                                    orderable: true
-                                }, {
-
-                                    name: "Working_days_Additions",
-                                    orderable: true
-                                }, {
-
-                                    name: "Food_Allowance_Non_Taxable",
-                                    orderable: true
-                                }, {
-
-                                    name: "Incentives_Non_Taxable",
-                                    orderable: true
-                                }, {
-
-                                    name: "COLA",
-                                    orderable: true
-                                }, {
-
-                                    name: "Finance_Statement_Bonus",
-                                    orderable: true
-                                }, {
-
-                                    name: "Traffic_Violation",
-                                    orderable: true
-                                }, {
-
-                                    name: "Mobile_Deduction",
-                                    orderable: true
-                                }, {
-
-                                    name: "Loan",
-                                    orderable: true
-                                }, {
-
-                                    name: "Deduction_fixed",
-                                    orderable: true
-                                }, {
-
-                                    name: "Other_Deduction",
-                                    orderable: true
-                                }, {
-
-                                    name: "social_insurance",
-                                    orderable: true
-                                }, {
-
-                                    name: "Taxes",
-                                    orderable: true
-                                }, {
-
-                                    name: "Misconduct",
-                                    orderable: true
-                                }, {
-
-                                    name: "Non_Working_days",
-                                    orderable: true
-                                }, {
-
-                                    name: "Misconduct_Days",
-                                    orderable: true
-                                }, {
-
-                                    name: "half_Gross_salary",
-                                    orderable: true
-                                }, {
-
-                                    name: "Sick_Leave_Social_Insurance",
-                                    orderable: true
-                                }, {
-
-                                    name: "Social_insurance_ER_share",
-                                    orderable: true
-                                }, {
-
-                                    name: "Medical_Insurance",
-                                    orderable: true
-                                }, {
-
-                                    name: "Life_Insurance",
-                                    orderable: true
-                                }, {
-
-                                    name: "Unpaid_Leave",
-                                    orderable: true
-                                }, {
-
-                                    name: "Unpaid_leave_half_Days",
-                                    orderable: true
-                                }, {
-
-                                    name: "Penalties",
-                                    orderable: true
-                                }, {
-
-                                    name: "Absence",
-                                    orderable: true
-                                }, {
-
-                                    name: "Unauthorized_Absence",
-                                    orderable: true
-                                }, {
-
-                                    name: "Lateness_between_1_and_60_minutes",
-                                    orderable: true
-                                }, {
-
-                                    name: "Lateness_between_60_and_120_minutes",
-                                    orderable: true
-                                }, {
-
-                                    name: "Lateness_between_120_and_beyond",
-                                    orderable: true
-                                }, {
-
-                                    name: "Missing_sign_in_out",
-                                    orderable: true
-                                }, {
-
-                                    name: "Early_out",
-                                    orderable: true
-                                }, {
-
-                                    name: "Misconduct_OTL",
-                                    orderable: true
-                                }, {
-
-                                    name: "CP_Penalties",
-                                    orderable: true
-                                }, {
-
-                                    name: "penalty_transfer",
-                                    orderable: true
-                                }, {
-
-                                    name: "Over_Time_Request",
-                                    orderable: true
-                                }, {
-
-                                    name: "Business_Trip_Overtime",
-                                    orderable: true
-                                }, {
-
-                                    name: "Business_Trip_Overtime_Holiday",
-                                    orderable: true
-                                }, {
-
-                                    name: "Holiday_Overtime",
-                                    orderable: true
-                                }, {
-
-                                    name: "Overtime_OTL",
-                                    orderable: true
-                                }, {
-
-                                    name: "loan_installment",
-                                    orderable: true
-                                }, {
-
-                                    name: "loan_capital_amount",
-                                    orderable: true
-                                }, {
-
-                                    name: "Loan_Value",
-                                    orderable: true
-                                }, {
-
-                                    name: "loan_comment",
-                                    orderable: true
-                                }, {
-
-                                    name: "Traffic_violations_installment",
-                                    orderable: true
-                                }, {
-
-                                    name: "Traffic_violations_capital_amount",
-                                    orderable: true
-                                }, {
-
-                                    name: "Traffic_violations_comment",
-                                    orderable: true
-                                }, {
-
-                                    name: "Martyrs_fund",
-                                    orderable: true
-                                }, {
-
-                                    name: "Diff_Start_Plus",
-                                    orderable: true
-                                }, {
-
-                                    name: "Diff_Start_minus",
-                                    orderable: true
-                                }, {
-
-                                    name: "Gross_Salary",
-                                    orderable: true
-                                }, {
-
-                                    name: "Insurance_salary",
-                                    orderable: true
-                                }, {
-
-                                    name: "Taxable_salary",
-                                    orderable: true
-                                }, {
-
-                                    name: "Total_Earnings",
-                                    orderable: true
-                                }, {
-
-                                    name: "Total_Deductions",
-                                    orderable: true
-                                }, {
-
-                                    name: "Net_Salary",
-                                    orderable: true
-                                }
-
-
-
-
-                            ],
+                                name: "name",
+                                orderable: true
+                            }, {
+
+                                name: "person_number",
+                                orderable: true
+                            }, {
+
+                                name: "HireDate",
+                                orderable: true
+                            }, {
+
+                                name: "payroll_id",
+                                orderable: true
+                            }, {
+
+                                name: "period_id",
+                                orderable: true
+                            }, {
+
+                                name: "instance_id",
+                                orderable: true
+                            }, {
+
+                                name: "instance_name",
+                                orderable: true
+                            }, {
+
+                                name: "Basic_Salary",
+                                orderable: true
+                            }, {
+
+                                name: "Basic_Salary_worked_days",
+                                orderable: true
+                            }, {
+
+                                name: "Worked_Days_diff",
+                                orderable: true
+                            }, {
+
+                                name: "Accommodation_allowance_fixed",
+                                orderable: true
+                            }, {
+
+                                name: "Nature_of_Work",
+                                orderable: true
+                            }, {
+
+                                name: "Car_Allowance_fixed",
+                                orderable: true
+                            }, {
+
+                                name: "Transportation_allowance_Fix",
+                                orderable: true
+                            }, {
+
+                                name: "Transport_Fix_Non_Taxable",
+                                orderable: true
+                            }, {
+
+                                name: "Transport_Fix_Taxable",
+                                orderable: true
+                            }, {
+
+                                name: "Transportation_Allowance_non_tax_VAR",
+                                orderable: true
+                            }, {
+
+                                name: "Car_allowance_non_taxable",
+                                orderable: true
+                            }, {
+
+                                name: "Fuel_Allowance_non_taxable",
+                                orderable: true
+                            }, {
+
+                                name: "Nature_of_Work_Allow_NTF",
+                                orderable: true
+                            }, {
+
+                                name: "Representation_Allowance_NTF",
+                                orderable: true
+                            }, {
+
+                                name: "Pay_Review_Bulk_Payment",
+                                orderable: true
+                            }, {
+
+                                name: "Overtime",
+                                orderable: true
+                            }, {
+
+                                name: "Amount_OverTime",
+                                orderable: true
+                            }, {
+
+                                name: "Bonus_Tax_Applicable",
+                                orderable: true
+                            }, {
+
+                                name: "Bonus_Non_Tax_Applicable",
+                                orderable: true
+                            }, {
+
+                                name: "Diff_Salaries",
+                                orderable: true
+                            }, {
+
+                                name: "Incentives",
+                                orderable: true
+                            }, {
+
+                                name: "Vacation_encashment",
+                                orderable: true
+                            }, {
+
+                                name: "Notice_period_compensation",
+                                orderable: true
+                            }, {
+
+                                name: "Transport_allowance_Non_Tax",
+                                orderable: true
+                            }, {
+
+                                name: "Vacation_Encashment_Non_Tax",
+                                orderable: true
+                            }, {
+
+                                name: "other_plus",
+                                orderable: true
+                            }, {
+
+                                name: "Travel_to_Sokhna",
+                                orderable: true
+                            }, {
+
+                                name: "Travel_to_Sahel",
+                                orderable: true
+                            }, {
+
+                                name: "Working_days_Additions",
+                                orderable: true
+                            }, {
+
+                                name: "Food_Allowance_Non_Taxable",
+                                orderable: true
+                            }, {
+
+                                name: "Incentives_Non_Taxable",
+                                orderable: true
+                            }, {
+
+                                name: "COLA",
+                                orderable: true
+                            }, {
+
+                                name: "Finance_Statement_Bonus",
+                                orderable: true
+                            }, {
+
+                                name: "Traffic_Violation",
+                                orderable: true
+                            }, {
+
+                                name: "Mobile_Deduction",
+                                orderable: true
+                            }, {
+
+                                name: "Loan",
+                                orderable: true
+                            }, {
+
+                                name: "Deduction_fixed",
+                                orderable: true
+                            }, {
+
+                                name: "Other_Deduction",
+                                orderable: true
+                            }, {
+
+                                name: "social_insurance",
+                                orderable: true
+                            }, {
+
+                                name: "Taxes",
+                                orderable: true
+                            }, {
+
+                                name: "Misconduct",
+                                orderable: true
+                            }, {
+
+                                name: "Non_Working_days",
+                                orderable: true
+                            }, {
+
+                                name: "Misconduct_Days",
+                                orderable: true
+                            }, {
+
+                                name: "half_Gross_salary",
+                                orderable: true
+                            }, {
+
+                                name: "Sick_Leave_Social_Insurance",
+                                orderable: true
+                            }, {
+
+                                name: "Social_insurance_ER_share",
+                                orderable: true
+                            }, {
+
+                                name: "Medical_Insurance",
+                                orderable: true
+                            }, {
+
+                                name: "Life_Insurance",
+                                orderable: true
+                            }, {
+
+                                name: "Unpaid_Leave",
+                                orderable: true
+                            }, {
+
+                                name: "Unpaid_leave_half_Days",
+                                orderable: true
+                            }, {
+
+                                name: "Penalties",
+                                orderable: true
+                            }, {
+
+                                name: "Absence",
+                                orderable: true
+                            }, {
+
+                                name: "Unauthorized_Absence",
+                                orderable: true
+                            }, {
+
+                                name: "Lateness_between_1_and_60_minutes",
+                                orderable: true
+                            }, {
+
+                                name: "Lateness_between_60_and_120_minutes",
+                                orderable: true
+                            }, {
+
+                                name: "Lateness_between_120_and_beyond",
+                                orderable: true
+                            }, {
+
+                                name: "Missing_sign_in_out",
+                                orderable: true
+                            }, {
+
+                                name: "Early_out",
+                                orderable: true
+                            }, {
+
+                                name: "Misconduct_OTL",
+                                orderable: true
+                            }, {
+
+                                name: "CP_Penalties",
+                                orderable: true
+                            }, {
+
+                                name: "penalty_transfer",
+                                orderable: true
+                            }, {
+
+                                name: "Over_Time_Request",
+                                orderable: true
+                            }, {
+
+                                name: "Business_Trip_Overtime",
+                                orderable: true
+                            }, {
+
+                                name: "Business_Trip_Overtime_Holiday",
+                                orderable: true
+                            }, {
+
+                                name: "Holiday_Overtime",
+                                orderable: true
+                            }, {
+
+                                name: "Overtime_OTL",
+                                orderable: true
+                            }, {
+
+                                name: "loan_installment",
+                                orderable: true
+                            }, {
+
+                                name: "loan_capital_amount",
+                                orderable: true
+                            }, {
+
+                                name: "Loan_Value",
+                                orderable: true
+                            }, {
+
+                                name: "loan_comment",
+                                orderable: true
+                            }, {
+
+                                name: "Traffic_violations_installment",
+                                orderable: true
+                            }, {
+
+                                name: "Traffic_violations_capital_amount",
+                                orderable: true
+                            }, {
+
+                                name: "Traffic_violations_comment",
+                                orderable: true
+                            }, {
+
+                                name: "Martyrs_fund",
+                                orderable: true
+                            }, {
+
+                                name: "Diff_Start_Plus",
+                                orderable: true
+                            }, {
+
+                                name: "Diff_Start_minus",
+                                orderable: true
+                            }, {
+
+                                name: "Gross_Salary",
+                                orderable: true
+                            }, {
+
+                                name: "Insurance_salary",
+                                orderable: true
+                            }, {
+
+                                name: "Taxable_salary",
+                                orderable: true
+                            }, {
+
+                                name: "Total_Earnings",
+                                orderable: true
+                            }, {
+
+                                name: "Total_Deductions",
+                                orderable: true
+                            }, {
+
+                                name: "Net_Salary",
+                                orderable: true
+                            }],
                             order: [
                                 [0, 'asc']
                             ],
@@ -706,15 +728,32 @@
                                 ['10', '25', '50', '100', 'All']
                             ],
                             dom: 'Blfrtip',
-                            buttons: ['colvis',
+                            buttons: [
                                 "copy",
                                 "csv",
                                 "excel",
                                 "pdf",
-                                "print"
+                                "print",
+                                "colvis",
                             ],
                             autoFill: true,
 
+                            // initComplete: function(settings, json) {
+                            //     var table = $('#table').DataTable();
+                            //     var columns = table.settings().init().columns;
+
+                            //     columns.forEach(function(column, index) {
+                            //         var data = table.column(index).data()
+                            //             .toArray();
+                            //         var isAllZeros = data.every(function(value) {
+                            //             return value === 0 || value === '0' ||
+                            //                 value === null || value === '';
+                            //         });
+                            //         if (isAllZeros) {
+                            //             table.column(index).visible(false);
+                            //         }
+                            //     });
+                            // }
                         });
                     } else {
                         console.error("Error fetching data:", xhr.status);
@@ -749,7 +788,6 @@
                                     d.instance_id = instanceId;
                                     d.instance_id2 = instanceId2;
                                 },
-
                             },
                             columns: [{
                                     name: "period_id",
@@ -791,6 +829,22 @@
                                     orderable: true
                                 }
                             ],
+                            // initComplete: function(settings, json) {
+                            //     var table = $('#table').DataTable();
+                            //     var columns = table.settings().init().columns;
+
+                            //     columns.forEach(function(column, index) {
+                            //         var data = table.column(index).data()
+                            //             .toArray();
+                            //         var isAllZeros = data.every(function(value) {
+                            //             return value === 0 || value === '0' ||
+                            //                 value === null || value === '';
+                            //         });
+                            //         if (isAllZeros) {
+                            //             table.column(index).visible(false);
+                            //         }
+                            //     });
+                            // },
                             order: [
                                 [0, 'asc']
                             ],
@@ -801,14 +855,18 @@
                                 ['10', '25', '50', '100', 'All']
                             ],
                             dom: 'Blfrtip',
-                            buttons: ['colvis',
+                            buttons: [
                                 "copy",
                                 "csv",
                                 "excel",
                                 "pdf",
-                                "print"
+                                "print",
+                                "colvis"
                             ],
                             autoFill: true,
+
+
+
 
                         });
                     } else {
